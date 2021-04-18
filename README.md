@@ -166,5 +166,33 @@ export default {
 
 위의 방법으로 사용할 수 있다
 
-`import createPersistedState from "vuex-persistedstate";`
-를 사용해 현재 상태를 기억할 필요가 있다
+---
+
+## 새로고침 되어도 상태를 기억하기 위한 패키지
+
+새로고침하면 스토어에 저장된 데이터가 증발하므로 새로고침해도 유지시키기 위해 아래 패키지가 필요하다
+
+`npm i vuex-persistedstate`
+
+frontend → src → store → index.js
+
+```jsx
+import Vue from 'vue'
+import Vuex from 'vuex'
+import createPersistedState from "vuex-persistedstate";
+
+Vue.use(Vuex)
+
+import userStore from '@/store/modules/userStore.js'
+import operationStore from '@/store/modules/operationStore.js'
+
+const store = new Vuex.Store({
+  modules: {
+    userStore: userStore,
+    operationStore: operationStore,
+  },
+  plugins: [createPersistedState()],
+})
+
+export default store
+```
